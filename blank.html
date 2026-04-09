@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>空白页面</title>
+    <title>柯罗诺斯之眼 Chronos</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            background: #fff;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
+        .white-window {
+            position: relative;
+            z-index: 15;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1 class="title">柯罗诺斯之眼</h1>
+        <h2 class="subtitle">Chronos</h2>
+        <div class="white-window">
+            <!-- 白色窗口内容 -->
+        </div>
+    </div>
+    <div class="tech-background"></div>
+    <script>
+        // 30秒后弹出"程序已退出"弹窗
+        setTimeout(function() {
+            alert("程序已退出");
+        }, 30000);
+    </script>
 </body>
 </html>

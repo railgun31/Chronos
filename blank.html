@@ -3,36 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柯罗诺斯之眼 Chronos</title>
+    <title>柯罗诺斯之眼</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .white-window {
-            position: relative;
-            z-index: 15;
-            background: rgba(255, 255, 255, 0.95);
+        /* 增强的科技风背景效果 */
+        .tech-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, rgba(0, 0, 0, 0.9) 70%);
+            z-index: 1;
+        }
+        
+        .tech-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 240, 255, 0.05) 2px,
+                rgba(0, 240, 255, 0.05) 4px
+            );
+            animation: scan 8s linear infinite;
+        }
+        
+        .tech-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 240, 255, 0.05) 2px,
+                rgba(0, 240, 255, 0.05) 4px
+            );
+        }
+        
+        /* 粒子效果容器 */
+        #particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        /* 动态网格效果 */
+        .grid-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            opacity: 0.3;
+        }
+        
+        /* 自定义弹窗 */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #fff;
             border-radius: 10px;
             padding: 40px;
-            max-width: 500px;
+            max-width: 400px;
             width: 90%;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-            margin-top: 2rem;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+            border: 2px solid #00f0ff;
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0066ff;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+        
+        .modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .modal-button {
+            background: linear-gradient(45deg, #00f0ff, #0066ff);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+        }
+        
+        .modal-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+        }
+        
+        /* 动画效果 */
+        @keyframes scan {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">柯罗诺斯之眼</h1>
-        <h2 class="subtitle">Chronos</h2>
-        <div class="white-window">
-            <!-- 白色窗口内容 -->
-        </div>
+        <!-- 容器内容 -->
     </div>
     <div class="tech-background"></div>
+    <div id="particles-container"></div>
+    <div class="grid-effect"></div>
+    
+    <!-- 自定义弹窗 -->
+    <div class="custom-modal" id="exitModal">
+        <div class="modal-content">
+            <div class="modal-title">柯罗诺斯之眼</div>
+            <div class="modal-message">程序已退出</div>
+            <button class="modal-button" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+    
     <script>
-        // 30秒后弹出"程序已退出"弹窗
+        // 30秒后显示自定义弹窗
         setTimeout(function() {
-            alert("程序已退出");
+            document.getElementById('exitModal').style.display = 'flex';
         }, 30000);
+        
+        // 关闭弹窗的函数
+        function closeModal() {
+            document.getElementById('exitModal').style.display = 'none';
+        }
+        
+        // 粒子效果实现
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.background = '#00f0ff';
+                particle.style.borderRadius = '50%';
+                particle.style.boxShadow = '0 0 10px #00f0ff';
+                particle.style.opacity = Math.random() * 0.8 + 0.2;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `particleMove ${Math.random() * 10 + 10}s linear infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+        
+        // 添加粒子动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleMove {
+                0% {
+                    transform: translateY(100vh) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.8;
+                }
+                90% {
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-100px) translateX(${Math.random() * 200 - 100}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 初始化粒子效果
+        createParticles();
     </script>
 </body>
 </html>
